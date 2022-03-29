@@ -5,8 +5,8 @@ WORKDIR ${APP_DIR}
 ARG REQUIREMENTS_TXT=requirements_proxy.txt
 
 COPY ${REQUIREMENTS_TXT} ${APP_DIR}
-COPY data ${APP_DIR}/data
 COPY ./src ${APP_DIR}/src
+COPY ./data ${APP_DIR}/data
 COPY ./run.sh ${APP_DIR}/run.sh
 
 RUN apt update && \
@@ -14,6 +14,6 @@ RUN apt update && \
     pip install --no-cache-dir -r ${REQUIREMENTS_TXT}
 
 ENV PYTHONPATH /app
-
+COPY ./data ${APP_DIR}/data
 RUN chmod +x ${APP_DIR}/run.sh
 CMD ["./run.sh"]
