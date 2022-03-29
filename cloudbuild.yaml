@@ -38,4 +38,4 @@ steps:
   - --location=asia-northeast1-a
   - --cluster=${_CLUSTER_NAME}
 
-timeout: 2400s
+timeout: 1200s
