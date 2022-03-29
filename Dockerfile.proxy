@@ -5,7 +5,7 @@ WORKDIR ${APP_DIR}
 ARG REQUIREMENTS_TXT=requirements_proxy.txt
 
 COPY ${REQUIREMENTS_TXT} ${APP_DIR}
-COPY ./src ${APP_DIR}/src
+# COPY ./src ${APP_DIR}/src
 COPY ./data ${APP_DIR}/data
 COPY ./run.sh ${APP_DIR}/run.sh
 
