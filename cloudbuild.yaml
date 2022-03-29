@@ -9,11 +9,11 @@ steps:
   id: docker-build-torchserve
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/dev-mlops/proxy-image']
+  args: ['push', 'gcr.io/dev-mlops/proxy:latest']
   id: docker push proxy
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/dev-mlops/torch-serve-image']
+  args: ['push', 'gcr.io/dev-mlops/torch-serve-image:latest']
   id: docker push torch-serve
 
 - name: 'gcr.io/cloud-builders/gcloud'
