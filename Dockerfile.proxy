@@ -1,0 +1,19 @@
+FROM python:3.9-slim
+
+ENV APP_DIR /app
+WORKDIR ${APP_DIR}
+ARG REQUIREMENTS_TXT=requirements_proxy.txt
+
+COPY ${REQUIREMENTS_TXT} ${APP_DIR}
+COPY ./src ${APP_DIR}/src
+COPY ./data ${APP_DIR}/data
+COPY ./run.sh ${APP_DIR}/run.sh
+
+RUN apt update && \
+    pip install --upgrade pip && \
+    pip install --no-cache-dir -r ${REQUIREMENTS_TXT}
+
+ENV PYTHONPATH /app
+
+RUN chmod +x ${APP_DIR}/run.sh
+CMD ["./run.sh"]

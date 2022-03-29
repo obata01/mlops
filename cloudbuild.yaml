@@ -1,0 +1,41 @@
+steps:
+
+- name: gcr.io/cloud-builders/docker
+  args: ['build', '-t', 'gcr.io/dev-mlops/proxy', '-f', 'Dockerfile.proxy', '.']
+  id: docker build proxy
+
+- name: gcr.io/cloud-builders/docker
+  args: ['build', '-t', 'gcr.io/dev-mlops/torch-serve-image', '-f','Dockerfile.torchserve', '.']
+  id: docker-build-torchserve
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/dev-mlops/proxy:latest']
+  id: docker push proxy
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/dev-mlops/torch-serve-image:latest']
+  id: docker push torch-serve
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Create cluster
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    gcloud container clusters create \
+      ${_CLUSTER_NAME} \
+      --zone=asia-northeast1-a \
+      --num-nodes=1 \
+      --no-enable-autoupgrade || true
+
+- name: gcr.io/cloud-builders/gke-deploy
+  id: Deploy
+  waitFor:
+  - Create cluster
+  args:
+  - run
+  - --filename=k8s
+  - --location=asia-northeast1-a
+  - --cluster=${_CLUSTER_NAME}
+
+timeout: 2400s
