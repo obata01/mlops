@@ -19,7 +19,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: proxy
+    app: torch-serve
   ports:
     - protocol: TCP
       port: 8080

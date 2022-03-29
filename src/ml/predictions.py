@@ -1,3 +1,4 @@
+import os
 import io
 from PIL import Image
 import requests
@@ -12,7 +13,8 @@ def get_labels():
     return labels
 
 class ImageClassifier:
-    PREDICT_URL = "http://host.docker.internal:8080/predictions/resnet101"
+    TORCHSERVE_HOST = os.environ.get("TORCHSERVE_HOST", "host.docker.internal")
+    PREDICT_URL = f"http://{TORCHSERVE_HOST}:8080/predictions/resnet101"
     labels = get_labels()
 
     @classmethod

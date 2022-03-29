@@ -17,6 +17,9 @@ spec:
       containers:
       - name: proxy
         image: gcr.io/dev-mlops/proxy:latest
+        env:
+        - name: TORCHSERVE_HOST
+          value: "torch-serve-service"
         ports:
         - containerPort: 8010
       - name: redis
@@ -41,6 +44,7 @@ spec:
       labels:
         app: torch-serve
     spec:
+      hostname: torch-serve
       containers:
       - name: torch-serve
         image: gcr.io/dev-mlops/torch-serve-image:latest

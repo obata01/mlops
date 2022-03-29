@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 import requests
+import os
 import io
 from PIL import Image
 from fastapi import APIRouter, Request, UploadFile
@@ -32,7 +33,8 @@ def health() -> dict[str, str]:
 
 @router.get("/health/torchserve")
 def health_torchserve() -> dict[str, str]:
-    url = "http://host.docker.internal:8080/ping"
+    TORCHSERVE_HOST = os.environ.get("TORCHSERVE_HOST", "host.docker.internal")
+    url = f"http://{TORCHSERVE_HOST}:8080/ping"
     res = requests.post(url)
     if res.status_code == 200:
         return res.json()
