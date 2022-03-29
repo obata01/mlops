@@ -17,8 +17,8 @@
 ## ローカルに環境構築
 
 ```
-$ git clone git@github.com:obt01/mlops01.git
-$ cd mlops01
+$ git clone git@github.com:obata01/mlops.git
+$ cd mlops
 $ docker-compose -f docker-compose-torch.yml up -d
 ```
 
