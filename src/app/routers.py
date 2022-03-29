@@ -19,7 +19,7 @@ def predict(file: UploadFile):
 
 @router.get("/predict/test")
 def predict_test() -> dict[str, float]:
-    img_path = "/app/data/bobby.jpg"
+    img_path = "../../data/bobby.jpg"
     with Image.open(img_path) as img:
         res = ImageClassifier.predict(img_data=img, img_format=img.format, use_cache=False)
     return res
