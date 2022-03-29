@@ -1,15 +1,15 @@
 steps:
 
 - name: gcr.io/cloud-builders/docker
-  args: ['build', '--no-cache=true', '-t', 'gcr.io/dev-mlops/proxy', '-f', 'Dockerfile.proxy', '.']
+  args: ['build', '-t', 'gcr.io/dev-mlops/proxy', '-f', 'Dockerfile.proxy', '.']
   id: docker build proxy
 
 - name: gcr.io/cloud-builders/docker
-  args: ['build', '--no-cache=true', '-t', 'gcr.io/dev-mlops/torch-serve-image', '-f','Dockerfile.torchserve', '.']
+  args: ['build', '-t', 'gcr.io/dev-mlops/torch-serve-image', '-f','Dockerfile.torchserve', '.']
   id: docker-build-torchserve
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/dev-mlops/proxy:latest']
+  args: ['push', 'gcr.io/dev-mlops/proxy-image:latest']
   id: docker push proxy
 
 - name: 'gcr.io/cloud-builders/docker'
